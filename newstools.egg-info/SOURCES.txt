@@ -1,5 +1,0 @@
-newstools.egg-info/PKG-INFO
-newstools.egg-info/SOURCES.txt
-newstools.egg-info/dependency_links.txt
-newstools.egg-info/requires.txt
-newstools.egg-info/top_level.txt
