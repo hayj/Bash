@@ -15,4 +15,9 @@ function killbill {
         fi
     done
     IFS=$BAK
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 39170d315e35178bcd8126a3dd7139b02f2293b8
