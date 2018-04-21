@@ -2,7 +2,7 @@
 
 # To use this script:
 # 1. create the script in `~/.local/bin/hjupdate` and do `chmod +x ~/.local/bin/hjupdate`
-# 2. now you can update packages using `hjupdate` (or `hjupdate -a` to install all packages)
+# 2. now you can update packages using `hjupdate` (or `hjupdate -a` to update all packages)
 # 3. you can also do it in a python venv: `pew in test-venv hjupdate` (python 3)
 
 # Global vars:
