@@ -1,0 +1,5 @@
+scroller.egg-info/PKG-INFO
+scroller.egg-info/SOURCES.txt
+scroller.egg-info/dependency_links.txt
+scroller.egg-info/requires.txt
+scroller.egg-info/top_level.txt
