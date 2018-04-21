@@ -31,22 +31,22 @@ while test $# -gt 0; do
 done
 
 # Installing some apt-get packages:
-aptUpdateDone=0
-for current in jq htop rsync ; do
-	commandResult=$(command -v $current)
-	isInstalled=$(echo -n $commandResult | wc -c)
-	if [[ $isInstalled = 0 ]]; then
-		if [[ $aptUpdateDone = 0 ]]; then
-                    echo "Updating apt-get..."
-                    sudo apt-get update
-                fi
-		aptUpdateDone=1
-		echo "$current will be installed..."
-	  	sudo apt-get -y install $current
-	else
-		echo "$current is already installed."
-	fi
-done
+# aptUpdateDone=0
+# for current in jq htop rsync ; do
+# 	commandResult=$(command -v $current)
+# 	isInstalled=$(echo -n $commandResult | wc -c)
+# 	if [[ $isInstalled = 0 ]]; then
+# 		if [[ $aptUpdateDone = 0 ]]; then
+#                     echo "Updating apt-get..."
+#                     sudo apt-get update
+#                 fi
+# 		aptUpdateDone=1
+# 		echo "$current will be installed..."
+# 	  	sudo apt-get -y install $current
+# 	else
+# 		echo "$current is already installed."
+# 	fi
+# done
 
 # Installing some pip packages:
 # for current in pew workspacemanager ; do
