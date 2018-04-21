@@ -4,7 +4,7 @@
 # 1. add it in "~/.local/bin/" as "hjupdate"
 # 2. do "chmod +x ~/.local/bin/hjupdate"
 # 3. execute it using "hjupdate" (will install main hj packages)
-# 4. execute it using "hjupdate -a" (will ALL hj packages)
+# 4. or "hjupdate -a" (will install ALL hj packages)
 
 # Global vars:
 before="==> "
