@@ -12,21 +12,21 @@ after=" <=="
 # Getting all parameters:
 installAll=0
 while test $# -gt 0; do
-		case "$1" in
-				-h|--help)
-						echo "Install hj python packages"
-						echo "options:"
-						echo "-a, --all=ALL       Install all available package (instead of the minimal)"
-						exit 0
-						;;
-				-a|--all)
-						installAll=1
-						shift
-						;;
-				*)
-						break
-						;;
-		esac
+	case "$1" in
+		-h|--help)
+			echo "Install hj python packages"
+			echo "options:"
+			echo "-a, --all=ALL       Install all available package (instead of the minimal)"
+			exit 0
+			;;
+		-a|--all)
+			installAll=1
+			shift
+			;;
+		*)
+			break
+			;;
+	esac
 done
 
 # Installing some apt-get packages:
