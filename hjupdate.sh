@@ -31,7 +31,7 @@ done
 
 # Installing some apt-get packages:
 # aptUpdateDone=0
-# for current in jq htop rsync ; do
+# for current in git jq htop rsync ; do
 # 	commandResult=$(command -v $current)
 # 	isInstalled=$(echo -n $commandResult | wc -c)
 # 	if [[ $isInstalled = 0 ]]; then
