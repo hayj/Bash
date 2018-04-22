@@ -12,21 +12,21 @@ after=" <=="
 # Getting all parameters:
 installAll=0
 while test $# -gt 0; do
-        case "$1" in
-                -h|--help)
-                        echo "Install hj python packages"
-                        echo "options:"
-                        echo "-a, --all=ALL       Install all available package (instead of the minimal)"
-                        exit 0
-                        ;;
-                -a|--all)
-                        installAll=1
-                        shift
-                        ;;
-                *)
-                        break
-                        ;;
-        esac
+		case "$1" in
+				-h|--help)
+						echo "Install hj python packages"
+						echo "options:"
+						echo "-a, --all=ALL       Install all available package (instead of the minimal)"
+						exit 0
+						;;
+				-a|--all)
+						installAll=1
+						shift
+						;;
+				*)
+						break
+						;;
+		esac
 done
 
 # Installing some apt-get packages:
@@ -37,10 +37,10 @@ for current in git htop rsync ; do
 	isInstalled=$(echo -n $commandResult | wc -c)
 	if [[ $isInstalled = 0 ]]; then
 		if [[ $aptUpdateDone = 0 ]]; then
-            echo "Updating apt-get..."
-            sudo apt-get update
+			echo "Updating apt-get..."
+			sudo apt-get update
 			aptUpdateDone=1
-        fi
+		fi
 		echo "$current will be installed..."
 	  	sudo apt-get -y install $current
 	else
@@ -60,9 +60,9 @@ done
 
 # Print param infos:
 if [[ $installAll = 0 ]]; then
-    echo $before"Installing hj main packages..."$after
+	echo $before"Installing hj main packages..."$after
 else
-    echo $before"Installing all hj packages..."$after
+	echo $before"Installing all hj packages..."$after
 fi  
 
 # Creating a tmp directory:
@@ -76,31 +76,31 @@ mkdir -p $tmpDir
 # We create the install funct:
 installGz()
 {
-    package=$1
-    gzPattern=$1
-    echo $before"Installing $package..."$after
-    if [[ $package = *"hj"* ]]; then
-        gzPattern=${gzPattern:2}
-    fi
-    gzPattern=*$gzPattern*.tar.gz
-    pip uninstall -y $package
-    pip install $webcrawlerWmdistPath/$gzPattern
+	package=$1
+	gzPattern=$1
+	echo $before"Installing $package..."$after
+	if [[ $package = *"hj"* ]]; then
+		gzPattern=${gzPattern:2}
+	fi
+	gzPattern=*$gzPattern*.tar.gz
+	pip uninstall -y $package
+	pip install $webcrawlerWmdistPath/$gzPattern
 }
 
 # We create a funct to insall from github:
 installFromGithub()
 {
 	currentDir=$(pwd)
-    projectName=$1
-    package=$(echo $projectName | tr '[:upper:]' '[:lower:]')
-    echo $before"Installing $package..."$after
-    packagePath=$tmpDir/$projectName
-    echo $packagePath
-    git clone -q https://github.com/hayj/$projectName.git $packagePath
-    pip uninstall -y $package
-    cd $packagePath
-    python setup.py install
-    cd $currentDir
+	projectName=$1
+	package=$(echo $projectName | tr '[:upper:]' '[:lower:]')
+	echo $before"Installing $package..."$after
+	packagePath=$tmpDir/$projectName
+	echo $packagePath
+	git clone -q https://github.com/hayj/$projectName.git $packagePath
+	pip uninstall -y $package
+	cd $packagePath
+	python setup.py install
+	cd $currentDir
 }
 
 # We download packages in tar.gz:
@@ -110,18 +110,18 @@ git clone -q https://github.com/hayj/WebCrawler.git $webcrawlerPath
 
 # For all main packages:
 for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools"; do
-    installGz $i
+	installGz $i
 done
 
 # For all others packages:
 if [[ $installAll = 1 ]]; then
-    for i in "domainduplicate" "error404detector" "honeypotdetector" "machinelearning" "nlptools" "unshortener" "webbrowser" "webcrawler"; do
-        installGz $i
-    done
-    # Other packages:
-    for i in "NewsTools" "Scroller"; do
-        installFromGithub $i
-    done
+	for i in "domainduplicate" "error404detector" "honeypotdetector" "machinelearning" "nlptools" "unshortener" "webbrowser" "webcrawler"; do
+		installGz $i
+	done
+	# Other packages:
+	for i in "NewsTools" "Scroller"; do
+		installFromGithub $i
+	done
 fi
 
 # Removing the tmp dir:
