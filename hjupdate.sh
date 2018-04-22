@@ -90,6 +90,7 @@ installGz()
 # We create a funct to insall from github:
 installFromGithub()
 {
+	currentDir=$(pwd)
     projectName=$1
     package=$(echo $projectName | tr '[:upper:]' '[:lower:]')
     echo $before"Installing $package..."$after
@@ -97,7 +98,9 @@ installFromGithub()
     echo $packagePath
     git clone -q https://github.com/hayj/$projectName.git $packagePath
     pip uninstall -y $package
-    python $packagePath/setup.py install
+    cd $packagePath
+    python setup.py install
+    cd $currentDir
 }
 
 # We download packages in tar.gz:
