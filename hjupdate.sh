@@ -2,7 +2,7 @@
 
 # To use this script:
 # 1. create the script in `~/.local/bin/hjupdate` and do `chmod +x ~/.local/bin/hjupdate`
-# 2. now you can update packages using `hjupdate` (or `hjupdate -a` to update all packages)
+# 2. now you can update packages using `hjupdate` (use `hjupdate -a` to update all packages and `hjupdate -p datatools` to update only one package)
 # 3. you can also do it in a python venv: `pew in test-venv hjupdate` (python 3)
 
 # Global vars:
@@ -11,16 +11,23 @@ after=" <=="
 
 # Getting all parameters:
 installAll=0
+packageToInstall=
 while test $# -gt 0; do
 	case "$1" in
 		-h|--help)
 			echo "Install hj python packages"
 			echo "options:"
 			echo "-a, --all=ALL       Install all available package (instead of the minimal)"
+			echo "-p, --package=PACKAGE       Install only the specified available package (instead of the minimal)"
 			exit 0
 			;;
 		-a|--all)
 			installAll=1
+			shift
+			;;
+		-p|--package)
+			shift
+			packageToInstall=$1
 			shift
 			;;
 		*)
@@ -29,8 +36,37 @@ while test $# -gt 0; do
 	esac
 done
 
+packageToInstallLength=${#packageToInstall}
+if [[ $packageToInstallLength = 0  ]]; then
+	installAll=1
+fi
+
+isToInstall()
+{
+	if [[ $packageToInstallLength > 0 ]]; then
+		if [ "$1" == "$packageToInstall" ]; then
+			echo 1
+		else
+			echo 0
+		fi
+	else
+		echo 1
+	fi
+}
+
+
+if [ $(isToInstall "test") == "1" ]; then
+	echo "installation de test"
+fi
+package="datatools"
+if [ $(isToInstall "$package") == "1" ]; then
+	echo "installation de datatools"
+fi
+
+exit 1
+
 # Installing some apt-get packages:
-# jq git htop rsync pandoc tree
+# jq git htop rsync pandoc tree unzip p7zip-full
 aptUpdateDone=0
 for current in git htop rsync ; do
 	commandResult=$(command -v $current)
@@ -78,13 +114,15 @@ installGz()
 {
 	package=$1
 	gzPattern=$1
-	echo $before"Installing $package..."$after
-	if [[ $package = *"hj"* ]]; then
-		gzPattern=${gzPattern:2}
+	if [ $(isToInstall "$package") == "1" ]; then
+		echo $before"Installing $package..."$after
+		if [[ $package = *"hj"* ]]; then
+			gzPattern=${gzPattern:2}
+		fi
+		gzPattern=*$gzPattern*.tar.gz
+		pip uninstall -y $package
+		pip install $webcrawlerWmdistPath/$gzPattern
 	fi
-	gzPattern=*$gzPattern*.tar.gz
-	pip uninstall -y $package
-	pip install $webcrawlerWmdistPath/$gzPattern
 }
 
 # We create a funct to insall from github:
@@ -93,14 +131,16 @@ installFromGithub()
 	currentDir=$(pwd)
 	projectName=$1
 	package=$(echo $projectName | tr '[:upper:]' '[:lower:]')
-	echo $before"Installing $package..."$after
-	packagePath=$tmpDir/$projectName
-	echo $packagePath
-	git clone -q https://github.com/hayj/$projectName.git $packagePath
-	pip uninstall -y $package
-	cd $packagePath
-	python setup.py install
-	cd $currentDir
+	if [ $(isToInstall "$package") == "1" ]; then
+		echo $before"Installing $package..."$after
+		packagePath=$tmpDir/$projectName
+		echo $packagePath
+		git clone -q https://github.com/hayj/$projectName.git $packagePath
+		pip uninstall -y $package
+		cd $packagePath
+		python setup.py install
+		cd $currentDir
+	fi
 }
 
 # We download packages in tar.gz:
