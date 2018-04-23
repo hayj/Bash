@@ -36,8 +36,9 @@ while test $# -gt 0; do
 	esac
 done
 
+
 packageToInstallLength=${#packageToInstall}
-if [[ $packageToInstallLength = 0  ]]; then
+if [[ $packageToInstallLength > 0 ]]; then
 	installAll=1
 fi
 
@@ -120,6 +121,7 @@ installFromGithub()
 	currentDir=$(pwd)
 	projectName=$1
 	package=$(echo $projectName | tr '[:upper:]' '[:lower:]')
+	echo $package
 	if [ $(isToInstall "$package") == "1" ]; then
 		echo $before"Installing $package..."$after
 		packagePath=$tmpDir/$projectName
