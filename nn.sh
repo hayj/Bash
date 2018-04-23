@@ -53,3 +53,4 @@ nn()
         # nohup nice -n "$niceness" "$@" > $outputPath 2>&1&
         nohup nice -n "$niceness" "$@" >/dev/null 2>&1 &
     fi
+}
