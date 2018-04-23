@@ -124,7 +124,6 @@ installFromGithub()
 	if [ $(isToInstall "$package") == "1" ]; then
 		echo $before"Installing $package..."$after
 		packagePath=$tmpDir/$projectName
-		echo $packagePath
 		git clone -q https://github.com/hayj/$projectName.git $packagePath
 		pip uninstall -y $package
 		cd $packagePath
