@@ -15,10 +15,10 @@ packageToInstall=
 while test $# -gt 0; do
 	case "$1" in
 		-h|--help)
-			echo "Install hj python packages"
+			echo "Install hj python packages, by default only main pakages"
 			echo "options:"
-			echo "-a, --all=ALL       Install all available package (instead of the minimal)"
-			echo "-p, --package=PACKAGE       Install only the specified available package (instead of the minimal)"
+			echo "-a, --all	Install all available packages (instead of the minimal)"
+			echo "-p, --package	Install only the specified package"
 			exit 0
 			;;
 		-a|--all)
@@ -53,17 +53,6 @@ isToInstall()
 		echo 1
 	fi
 }
-
-
-if [ $(isToInstall "test") == "1" ]; then
-	echo "installation de test"
-fi
-package="datatools"
-if [ $(isToInstall "$package") == "1" ]; then
-	echo "installation de datatools"
-fi
-
-exit 1
 
 # Installing some apt-get packages:
 # jq git htop rsync pandoc tree unzip p7zip-full
