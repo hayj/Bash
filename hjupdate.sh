@@ -121,7 +121,6 @@ installFromGithub()
 	currentDir=$(pwd)
 	projectName=$1
 	package=$(echo $projectName | tr '[:upper:]' '[:lower:]')
-	echo $package
 	if [ $(isToInstall "$package") == "1" ]; then
 		echo $before"Installing $package..."$after
 		packagePath=$tmpDir/$projectName
