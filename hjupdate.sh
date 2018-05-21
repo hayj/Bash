@@ -110,7 +110,11 @@ installGz()
             gzPattern=${gzPattern:2}
         fi
         gzPattern=*$gzPattern*.tar.gz
-        pip uninstall -y $package
+        if [[ $package = *"webbrowser"* ]]; then
+        	pip uninstall -y hjwebbrowser
+        else
+        	pip uninstall -y $package
+        fi
         pip install $webcrawlerWmdistPath/$gzPattern
     fi
 }
