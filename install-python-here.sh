@@ -1,8 +1,9 @@
-PYTHON_VERSION=3.5.4
+PYTHON_VERSION=3.6.6 # 3.6.6, 3.7.0, 3.5.4
 sudo apt-get -y install python3-tk tk
 sudo apt-get -y install tk8.6-dev
 sudo apt-get -y install libssl-dev
 sudo apt-get -y install pew
+sudo apt-get -y install zlib1g-dev
 sudo apt-get -y install make build-essential libssl-dev zlib1g-dev libbz2-dev libsqlite3-dev
 INSTALL_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TMP_DIR=$INSTALL_DIR/tmp
