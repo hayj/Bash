@@ -142,19 +142,19 @@ webcrawlerWmdistPath=$webcrawlerPath/wm-dist
 git clone -q https://github.com/hayj/WebCrawler.git $webcrawlerPath
 
 # For all main packages:
-for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools"; do
+for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "NewsTools" "nlptools"; do
     installGz $i
 done
 
 # For all others packages:
 if [[ $installAll = 1 ]]; then
-    for i in "domainduplicate" "error404detector" "honeypotdetector" "machinelearning" "nlptools" "unshortener" "webbrowser" "webcrawler"; do
+    for i in "domainduplicate" "error404detector" "honeypotdetector" "machinelearning" "unshortener" "webbrowser" "webcrawler" "Scroller"; do
         installGz $i
     done
     # Other packages:
-    for i in "NewsTools" "Scroller"; do
-        installFromGithub $i
-    done
+    # for i in "NewsTools" "Scroller"; do
+    #     installFromGithub $i
+    # done
 fi
 
 # Removing the tmp dir:
