@@ -58,7 +58,7 @@ isToInstall()
 # Installing some apt-get packages:
 # jq git htop rsync pandoc tree unzip p7zip-full vim python-pip tk
 aptUpdateDone=0
-for current in git htop rsync ; do
+for current in git htop rsync libenchant1c2a ; do
     commandResult=$(command -v $current)
     isInstalled=$(echo -n $commandResult | wc -c)
     if [[ $isInstalled = 0 ]]; then
@@ -142,13 +142,13 @@ webcrawlerWmdistPath=$webcrawlerPath/wm-dist
 git clone -q https://github.com/hayj/WebCrawler.git $webcrawlerPath
 
 # For all main packages:
-for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "NewsTools" "nlptools"; do
+for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools"; do
     installGz $i
 done
 
 # For all others packages:
 if [[ $installAll = 1 ]]; then
-    for i in "domainduplicate" "error404detector" "honeypotdetector" "machinelearning" "unshortener" "webbrowser" "webcrawler" "Scroller"; do
+    for i in "domainduplicate" "error404detector" "honeypotdetector" "machinelearning" "unshortener" "webbrowser" "webcrawler" "scroller"; do
         installGz $i
     done
     # Other packages:
