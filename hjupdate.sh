@@ -142,7 +142,7 @@ webcrawlerWmdistPath=$webcrawlerPath/wm-dist
 git clone -q https://github.com/hayj/WebCrawler.git $webcrawlerPath
 
 # For all main packages:
-for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools"; do
+for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools" "sparktools"; do
     installGz $i
 done
 
