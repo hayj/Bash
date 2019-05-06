@@ -37,6 +37,16 @@ while test $# -gt 0; do
 done
 
 
+iAmSudoer()
+{
+    sudoers=$(grep "^sudo:.*$" /etc/group | cut -d: -f4)
+    if [[ $sudoers = *"$USER"* ]]; then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
 packageToInstallLength=${#packageToInstall}
 if [[ $packageToInstallLength > 0 ]]; then
     installAll=1
@@ -58,21 +68,23 @@ isToInstall()
 # Installing some apt-get packages:
 # jq git htop rsync pandoc tree unzip p7zip-full vim python-pip tk
 aptUpdateDone=0
-for current in git htop rsync libenchant1c2a ; do
-    commandResult=$(command -v $current)
-    isInstalled=$(echo -n $commandResult | wc -c)
-    if [[ $isInstalled = 0 ]]; then
-        if [[ $aptUpdateDone = 0 ]]; then
-            echo "Updating apt-get..."
-            sudo apt-get update
-            aptUpdateDone=1
+if [[ $(iAmSudoer) = 1 ]]; then
+    for current in git htop rsync libenchant1c2a ; do
+        commandResult=$(command -v $current)
+        isInstalled=$(echo -n $commandResult | wc -c)
+        if [[ $isInstalled = 0 ]]; then
+            if [[ $aptUpdateDone = 0 ]]; then
+                echo "Updating apt-get..."
+                sudo apt-get update
+                aptUpdateDone=1
+            fi
+            echo "$current will be installed..."
+              sudo apt-get -y install $current
+        else
+            echo "$current is already installed."
         fi
-        echo "$current will be installed..."
-          sudo apt-get -y install $current
-    else
-        echo "$current is already installed."
-    fi
-done
+    done
+fi
 
 # Installing some pip packages:
 # for current in pew workspacemanager ; do
@@ -116,6 +128,8 @@ installGz()
         	pip uninstall -y $package
         fi
         pip install $webcrawlerWmdistPath/$gzPattern
+    else
+        echo $before"We don't install $package..."$after
     fi
 }
 
@@ -139,10 +153,12 @@ installFromGithub()
 # We download packages in tar.gz:
 webcrawlerPath=$tmpDir/WebCrawler
 webcrawlerWmdistPath=$webcrawlerPath/wm-dist
-git clone -q https://github.com/hayj/WebCrawler.git $webcrawlerPath
+url="https://github.com/hayj/WebCrawler.git"
+echo "Downloading $url..."
+git clone -q $url $webcrawlerPath
 
 # For all main packages:
-for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools" "sparktools"; do
+for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools" "sparktools" "networktools"; do
     installGz $i
 done
 
