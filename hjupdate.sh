@@ -158,7 +158,7 @@ echo "Downloading $url..."
 git clone -q $url $webcrawlerPath
 
 # For all main packages:
-for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools" "sparktools" "networktools"; do
+for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools" "sparktools" "networktools" "annotator"; do
     installGz $i
 done
 
