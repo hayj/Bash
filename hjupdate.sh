@@ -101,7 +101,11 @@ if [[ $installAll = 0 ]]; then
     echo $before"Installing hj main packages..."$after
 else
     echo $before"Installing all hj packages..."$after
-fi  
+fi
+
+# Solve some problems on these packages:
+pip install pypandoc
+pip install publicsuffix==1.0.5
 
 # Creating a tmp directory:
 tmpDirName="hjupdate-tmp"
