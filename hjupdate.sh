@@ -67,24 +67,24 @@ isToInstall()
 
 # Installing some apt-get packages:
 # jq git htop rsync pandoc tree unzip p7zip-full vim python-pip tk
-aptUpdateDone=0
-if [[ $(iAmSudoer) = 1 ]]; then
-    for current in git htop rsync libenchant1c2a ; do
-        commandResult=$(command -v $current)
-        isInstalled=$(echo -n $commandResult | wc -c)
-        if [[ $isInstalled = 0 ]]; then
-            if [[ $aptUpdateDone = 0 ]]; then
-                echo "Updating apt-get..."
-                sudo apt-get update
-                aptUpdateDone=1
-            fi
-            echo "$current will be installed..."
-              sudo apt-get -y install $current
-        else
-            echo "$current is already installed."
-        fi
-    done
-fi
+# aptUpdateDone=0
+# if [[ $(iAmSudoer) = 1 ]]; then
+#     for current in git htop rsync libenchant1c2a ; do
+#         commandResult=$(command -v $current)
+#         isInstalled=$(echo -n $commandResult | wc -c)
+#         if [[ $isInstalled = 0 ]]; then
+#             if [[ $aptUpdateDone = 0 ]]; then
+#                 echo "Updating apt-get..."
+#                 sudo apt-get update
+#                 aptUpdateDone=1
+#             fi
+#             echo "$current will be installed..."
+#               sudo apt-get -y install $current
+#         else
+#             echo "$current is already installed."
+#         fi
+#     done
+# fi
 
 # Installing some pip packages:
 # for current in pew workspacemanager ; do
@@ -95,6 +95,8 @@ fi
 #         echo "$current is already installed."
 #     fi
 # done
+
+pip install orderedset pypandoc publicsuffix
 
 # Print param infos:
 if [[ $installAll = 0 ]]; then
@@ -162,7 +164,7 @@ echo "Downloading $url..."
 git clone -q $url $webcrawlerPath
 
 # For all main packages:
-for i in "hjsystemtools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools" "sparktools" "networktools" "annotator"; do
+for i in "systools" "datastructuretools" "databasetools" "datatools" "newstools" "nlptools" "sparktools" "networktools" "annotator"; do
     installGz $i
 done
 
