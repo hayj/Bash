@@ -96,7 +96,6 @@ isToInstall()
 #     fi
 # done
 
-pip install orderedset pypandoc publicsuffix
 
 # Print param infos:
 if [[ $installAll = 0 ]]; then
@@ -106,8 +105,9 @@ else
 fi
 
 # Solve some problems on these packages:
-pip install pypandoc
-pip install publicsuffix==1.0.5
+# pip install pypandoc
+# pip install publicsuffix==1.0.5
+pip install orderedset pypandoc publicsuffix
 
 # Creating a tmp directory:
 tmpDirName="hjupdate-tmp"
