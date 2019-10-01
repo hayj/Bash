@@ -1,0 +1,1 @@
+/home/hayj/Dashboard/Linux/Bash/hjbashrc.sh
